@@ -2,6 +2,9 @@ name: Agent Image Build
 
 on: push
 
+env:
+  REPO_OWNER: stmorse
+
 jobs:
 
   build:
