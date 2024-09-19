@@ -28,9 +28,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}   
       
-    # - name: Build the Docker image
-      # run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-
     - name: Build and push Docker image
       uses: docker/build-push-action@v3
       with:
@@ -38,4 +35,3 @@ jobs:
         file: ./dockerfiles/agent/Dockerfile
         push: true
         tags: ghcr.io/${{ env.REPO_OWNER }}/agent:latest
-        # build-args: BUILDKIT_STEP_LOG_MAX_SIZE=10485760 BUILDKIT_STEP_LOG_MAX_SPEED=100000000
