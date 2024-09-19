@@ -10,9 +10,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+    permissions: read-all|write-all
+      # contents: read
+      # packages: write
     
     steps:
     - name: Checkout the repository
