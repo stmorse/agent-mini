@@ -4,6 +4,7 @@ on: push
 
 jobs:
   build_and_push:
+    if: "contains(github.event.head_commit.message, 'agent/')"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -33,7 +34,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        file: ./dockerfiles/agent/Dockerfile
+        file: ./agent/Dockerfile
         push: true
         tags: ghcr.io/${{ env.REPO_OWNER }}/agent-mini-agent:latest
         build-args: BUILDKIT_STEP_LOG_MAX_SIZE=10485760 BUILDKIT_STEP_LOG_MAX_SPEED=100000000
@@ -41,7 +42,7 @@ jobs:
         # Enable Docker CLI debug output
         DOCKER_BUILDKIT: 1
         DOCKER_CLI_EXPERIMENTAL: enabled
-        DEBUG: 1    
+        DEBUG: 1
 
 
 ## THIS CODE WORKS, FOR DOCKER HUB:

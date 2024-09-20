@@ -1,1 +1,14 @@
-api: v1
+apiVersion: v1
+kind: Pod
+metadata:
+  name: agent
+  namespace: fais-1
+spec:
+  containers:
+    - name: agent-pod
+      image: 'ghcr.io/stmorse/agent-mini-agent:latest'
+      resources:
+        requests:
+          memory: '1Gi'
+          cpu: '1'
+      command: ['/bin/sh', '-c', 'sleep infinity']

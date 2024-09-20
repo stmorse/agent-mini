@@ -2,7 +2,7 @@ FROM python:3.11-slim
 
 RUN pip install --no-cache-dir requests
 
-COPY ../../src/agent/agent.py /app/
+COPY ./agent.py /app/
 
 WORKDIR /app
 
