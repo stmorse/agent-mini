@@ -44,7 +44,7 @@ if __name__ == "__main__":
     # currently hard-coded for llama3
     model = Model()
 
-    print(model.version)
+    print('Model: ', model.version)
 
     print("Type 'q' to quit.")
     while True:
