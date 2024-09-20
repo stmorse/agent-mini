@@ -3,32 +3,22 @@ import json
 import requests
 
 class Model:
-    def __init__(self):
-        self.api_url = f'http://ollama:80/api/'
+    def __init__(self, name):
+        self.api_url = 'http://ollama:80/api/'
         self.generate_endpoint = self.api_url + 'generate'
         self.version_endpoint = self.api_url + 'version'
         self.headers = {'Content-Type': 'application/json'}
-        self.name = "llama3"
-
-        self.available = False
-        self.version = None
-
-        try:
-            self.version = requests.post(self.version_endpoint).json()
-            self.available = True
-        except:
-            print('Error retrieving model')
+        self.name = name
 
     def get_response(self, prompt):
-        if not self.available:
-            return 'No model available'
-
+        # create data dict
         data = {
             'model': self.name,
             'prompt': prompt,
             'stream': False
         }
 
+        # do API call
         response = requests.post(
             self.generate_endpoint,
             headers=self.headers,
@@ -38,16 +28,13 @@ class Model:
         return response.json()
 
 if __name__ == "__main__":
-    print('agent.py is running...')
-
     # initialize the model wrapper
-    # currently hard-coded for llama3
-    model = Model()
+    model = Model("llama3.1")
 
     print('Model: ', model.version)
 
     prompt = 'Hello!'
-    response = model.get_response(prompt)
+    response = model.get_response(prompt).json()
     print('\n' + response['response'] + '\n\n')
     
     # print("Type 'q' to quit.")
