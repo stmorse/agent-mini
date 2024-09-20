@@ -46,15 +46,19 @@ if __name__ == "__main__":
 
     print('Model: ', model.version)
 
-    print("Type 'q' to quit.")
-    while True:
-        prompt = input(">> ")
+    prompt = 'Hello!'
+    response = model.get_response(prompt)
+    print('\n' + response['response'] + '\n\n')
+    
+    # print("Type 'q' to quit.")
+    # while True:
+    #     prompt = input(">> ")
         
-        if prompt.lower() == "q":
-            print("Exiting")
-            break
+    #     if prompt.lower() == "q":
+    #         print("Exiting")
+    #         break
         
-        response = model.get_response(prompt)
-        print("\n" + response["response"] + "\n\n")
+    #     response = model.get_response(prompt)
+    #     print("\n" + response["response"] + "\n\n")
 
-    print(response)
+    # print(response)
