@@ -12,6 +12,7 @@ class Model:
 
         self.available = False
         self.version = None
+
         try:
             self.version = requests.post(self.version_endpoint).json()
             self.available = True
@@ -42,6 +43,8 @@ if __name__ == "__main__":
     # initialize the model wrapper
     # currently hard-coded for llama3
     model = Model()
+
+    print(model.version)
 
     print("Type 'q' to quit.")
     while True:
