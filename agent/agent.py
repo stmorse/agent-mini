@@ -17,11 +17,11 @@ class Model:
             self.version = requests.post(self.version_endpoint).json()
             self.available = True
         except:
-            return 'Error retrieving model.'
+            return 'Error retrieving model'
 
     def get_response(self, prompt):
         if not self.available:
-            return 'No model available.'
+            return 'No model available'
 
         data = {
             'model': self.name,
