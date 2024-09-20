@@ -1,10 +1,14 @@
 name: Agent Image Build
 run-name: Build Agent Image
-on: push
+on: 
+  push:
+    branches:
+    - main
+    paths:
+    - 'agent/'
 
 jobs:
   build_and_push:
-    if: "contains(github.event.head_commit.message, 'agent/')"
     runs-on: ubuntu-latest
     permissions:
       contents: read
