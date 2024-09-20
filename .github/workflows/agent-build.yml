@@ -1,57 +1,74 @@
 name: Agent Image Build
-
+run-name: Build Agent Image
 on: push
 
 jobs:
-
-  push_to_registry:
-    name: Push Agent Docker Image to Docker Hub
+  build_and_push:
     runs-on: ubuntu-latest
     permissions:
-      packages: write
       contents: read
-      attestations: write
-      id-token: write
+      packages: write
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Check out the repository
+      uses: actions/checkout@v3
 
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
 
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Extract metadata for Docker
-      #   uses: docker/metadata-action@v3
-      #   with:
-      #     images: ${{ secrets.DOCKERHUB_USERNAME }}/agent-mini-agent
+    # shouldn't need this (stmorse is already lowercase) 
+    # but keeping because for now I know it sets the right env variable
+    - name: Define lowercase repository owner
+      id: repo
+      run: echo "REPO_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./dockerfiles/agent/Dockerfile
-          push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/agent-mini-agent:latest
-          # tags: ${{ steps.meta.outputs.tags }}
-          # labels: ${{ steps.meta.outputs.labels }}
-            
-      # - name: Log in to GitHub Container Registry
-      #   uses: docker/login-action@v3
-      #   with:
-      #     registry: ghcr.io
-      #     username: ${{ github.actor }}
-      #     password: ${{ secrets.GITHUB_TOKEN }}   
-      
-      # - name: Build and push Docker image
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     context: .
-      #     file: ./dockerfiles/agent/Dockerfile
-      #     push: true
-      #     tags: ghcr.io/${{ env.REPO_OWNER }}/agent:latest
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        file: ./dockerfiles/agent/Dockerfile
+        push: true
+        tags: ghcr.io/${{ env.REPO_OWNER }}/agent-mini-agent:latest
+        build-args: BUILDKIT_STEP_LOG_MAX_SIZE=10485760 BUILDKIT_STEP_LOG_MAX_SPEED=100000000
+      env:
+        # Enable Docker CLI debug output
+        DOCKER_BUILDKIT: 1
+        DOCKER_CLI_EXPERIMENTAL: enabled
+        DEBUG: 1    
+
+
+## THIS CODE WORKS, FOR DOCKER HUB:
+
+  # push_to_registry:
+  #   name: Push Agent Docker Image to Docker Hub
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     packages: write
+  #     contents: read
+  #     attestations: write
+  #     id-token: write
+
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+
+  #     - name: Log in to Docker Hub
+  #       uses: docker/login-action@v3
+  #       with:
+  #         username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #         password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+  #     - name: Build and push Docker image
+  #       uses: docker/build-push-action@v3
+  #       with:
+  #         context: .
+  #         file: ./dockerfiles/agent/Dockerfile
+  #         push: true
+  #         tags: ${{ secrets.DOCKERHUB_USERNAME }}/agent-mini-agent:latest
