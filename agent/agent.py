@@ -26,11 +26,14 @@ class Model:
         return response.json()
 
 if __name__ == "__main__":
+    # test message
+    print('Agent is running ...')
+
     # initialize the model wrapper
     model = Model("llama3.1")
 
     prompt = 'Hello!'
-    response = model.get_response(prompt).json()
+    response = model.get_response(prompt)
     print('\n' + response['response'] + '\n\n')
     
     # print("Type 'q' to quit.")
