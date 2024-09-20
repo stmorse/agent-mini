@@ -32,19 +32,17 @@ if __name__ == "__main__":
     # initialize the model wrapper
     model = Model("llama3.1")
 
-    prompt = 'Hello!'
-    response = model.get_response(prompt)
-    print('\n' + response['response'] + '\n\n')
+    # prompt = 'Hello!'
+    # response = model.get_response(prompt)
+    # print('\n' + response['response'] + '\n\n')
     
-    # print("Type 'q' to quit.")
-    # while True:
-    #     prompt = input(">> ")
+    print("Type 'q' to quit.")
+    while True:
+        prompt = input(">> ")
         
-    #     if prompt.lower() == "q":
-    #         print("Exiting")
-    #         break
+        if prompt.lower() == "q":
+            print("Exiting")
+            break
         
-    #     response = model.get_response(prompt)
-    #     print("\n" + response["response"] + "\n\n")
-
-    # print(response)
+        response = model.get_response(prompt)
+        print("\n" + response["response"] + "\n\n")

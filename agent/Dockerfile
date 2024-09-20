@@ -6,5 +6,5 @@ COPY agent.py /app/
 
 WORKDIR /app
 
-CMD ["python", "agent.py"]
+# CMD ["python", "agent.py"]
 
