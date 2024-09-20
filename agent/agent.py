@@ -4,9 +4,7 @@ import requests
 
 class Model:
     def __init__(self, name):
-        self.api_url = 'http://ollama:80/api/'
-        self.generate_endpoint = self.api_url + 'generate'
-        self.version_endpoint = self.api_url + 'version'
+        self.endpoint = 'http://ollama:80/api/generate'
         self.headers = {'Content-Type': 'application/json'}
         self.name = name
 
@@ -20,7 +18,7 @@ class Model:
 
         # do API call
         response = requests.post(
-            self.generate_endpoint,
+            self.endpoint,
             headers=self.headers,
             data=json.dumps(data)
         )
@@ -30,8 +28,6 @@ class Model:
 if __name__ == "__main__":
     # initialize the model wrapper
     model = Model("llama3.1")
-
-    print('Model: ', model.version)
 
     prompt = 'Hello!'
     response = model.get_response(prompt).json()
