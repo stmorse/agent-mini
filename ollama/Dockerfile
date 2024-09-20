@@ -5,7 +5,7 @@ FROM ollama/ollama:latest
 WORKDIR /app
 
 # install curl so we can use it to send a pull request to the API
-RUN apt-get install -y curl
+RUN apt-get update && apt-get install -y curl
 
 # Expose the port that Ollama uses
 # EXPOSE 11434
