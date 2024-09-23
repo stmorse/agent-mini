@@ -1,16 +1,12 @@
 # Use the official CUDA image from the Docker Hub
-FROM nvidia/cuda:12.4-cudnn8-runtime-ubuntu20.04
+FROM nvidia/cuda:12.4.1-cudnn-runtime-ubuntu22.04
 
-# Install dependencies for Miniconda
-RUN apt-get update && apt-get install -y \
-    wget \
-    bzip2 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Miniconda
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
-    /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
-    rm /tmp/miniconda.sh
+# Install dependencies and Miniconda
+RUN apt-get update && apt-get install -y wget git && \
+    wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p /opt/conda && \
+    rm Miniconda3-latest-Linux-x86_64.sh && \
+    apt-get clean
 
 # Update PATH environment variable
 ENV PATH=/opt/conda/bin:$PATH
