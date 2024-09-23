@@ -5,6 +5,7 @@ on:
     branches:
     - main
     paths:
+    - '.github/workflows/agent-build.yml'
     - 'agent/**'
 
 jobs:
@@ -41,12 +42,6 @@ jobs:
         # file: ./agent/Dockerfile
         push: true
         tags: ghcr.io/${{ env.REPO_OWNER }}/agent-mini-agent:latest
-        build-args: BUILDKIT_STEP_LOG_MAX_SIZE=10485760 BUILDKIT_STEP_LOG_MAX_SPEED=100000000
-      env:
-        # Enable Docker CLI debug output
-        DOCKER_BUILDKIT: 1
-        DOCKER_CLI_EXPERIMENTAL: enabled
-        DEBUG: 1
 
 
 ## THIS CODE WORKS, FOR DOCKER HUB:

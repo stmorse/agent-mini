@@ -6,5 +6,6 @@ COPY agent.py /app/
 
 WORKDIR /app
 
+# for now don't run agent.py, we'll use in interactive mode
 # CMD ["python", "agent.py"]
 
