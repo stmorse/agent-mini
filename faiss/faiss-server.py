@@ -8,6 +8,12 @@ app = Flask(__name__)
 dimension = 128  # Example dimension, change as needed
 index = faiss.IndexFlatL2(dimension)
 
+# simple test endpoint
+@app.route('/test', methods=['GET'])
+def test():
+    return jsonify({"status": "success", "message": "Server is running"}), 200
+
+# add vectors to the index
 @app.route('/add', methods=['POST'])
 def add_vectors():
     data = request.json
@@ -15,6 +21,7 @@ def add_vectors():
     index.add(vectors)
     return jsonify({"status": "success", "message": "Vectors added to index"}), 200
 
+# search vectors in the index
 @app.route('/search', methods=['POST'])
 def search_vectors():
     data = request.json

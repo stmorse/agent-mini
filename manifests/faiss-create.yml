@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: faiss
+  namespace: fais-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: faiss
+  template:
+    metadata:
+      labels:
+        app: faiss
+    spec:
+      containers:
+      - name: faiss-container
+        image: ghcr.io/stmorse/agent-mini-faiss:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            memory: '1Gi'
+            nvidia.com/gpu: '1'
+          limits:
+            memory: '1Gi'
+            nvidia.com/gpu: '1'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: faiss
+  namespace: fais-1
+spec:
+  selector:
+    app: faiss
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
