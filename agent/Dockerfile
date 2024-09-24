@@ -1,11 +1,14 @@
 FROM python:3.11-slim
 
-RUN pip install --no-cache-dir requests
+RUN pip install --no-cache-dir requests sentence_transformers numpy
 
 COPY agent.py /app/
 
 WORKDIR /app
 
-# for now don't run agent.py, we'll use in interactive mode
-# CMD ["python", "agent.py"]
+# this forces print statements to flush immediately
+ENV PYTHONUNBUFFERED=1
+
+# autorun the agent
+CMD ["python", "agent.py"]
 
