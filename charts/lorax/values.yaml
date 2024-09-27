@@ -17,7 +17,7 @@ deployment:
 
   env:
     # Your huggingface hub token. Required for some models such as the llama-2 family.
-    huggingFaceHubToken: " "
+    huggingFaceHubToken: ""
 
     # Model types that support dynamic adapter loading
     loraxEnabledModelTypes: "llama,mistral"
