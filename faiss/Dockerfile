@@ -25,10 +25,10 @@ RUN conda install -n faiss-env -c pytorch -c nvidia faiss-gpu && \
     conda install -n faiss-env flask numpy
 
 # Copy the rest of the application code into the container
-COPY faiss-server.py /app/
+# COPY faiss-server.py /app/
 
 # Expose the port the app runs on
 EXPOSE 5000
 
 # Command to run the application
-CMD ["conda", "run", "-n", "faiss-env", "python", "faiss-server.py"]
+# CMD ["conda", "run", "-n", "faiss-env", "python", "faiss-server.py"]
