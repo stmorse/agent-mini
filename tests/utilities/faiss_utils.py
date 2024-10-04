@@ -33,14 +33,17 @@ def add_vectors(manager, index_id, vectors, vector_ids):
 
 def search_index(manager, index_id, queries, k):
     send_log_message(f"Searching Index {index_id}. Msg 1")
-    distances, indexes = manager.search_index(index_id, queries, k)
-    if distances and indexes is not None:
-        #Do we want to add the full distances / indexes into the log?
-        send_log_message(f"Search results from index {index_id}:", distances, indexes)
-        return distances, indexes
-    else:
-        send_log_message(f"Failed to search index {index_id}")
-        return [], []
+    # distances, indexes = manager.search_index(index_id, queries, k)
+    response = manager.search_index(index_id, queries, k)
+    print(response)
+    send_log_message(f"Searching Index {index_id}. Msg 2")
+    # if distances and indexes is not None:
+    #     #Do we want to add the full distances / indexes into the log?
+    #     send_log_message(f"Search results from index {index_id}:", distances, indexes)
+    #     return distances, indexes
+    # else:
+    #     send_log_message(f"Failed to search index {index_id}")
+    #     return [], []
 
 
 FaissManager.register('get_index_dict')

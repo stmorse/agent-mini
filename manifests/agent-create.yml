@@ -4,6 +4,8 @@ metadata:
   name: agent
   namespace: fais-1
 spec:
+  securityContext:
+    runAsUser: 270999
   containers:
     - name: agent-pod
       image: 'ghcr.io/stmorse/agent-mini-agent:latest'
@@ -12,3 +14,11 @@ spec:
           memory: '4Gi'
           cpu: '1'
       command: ['/bin/sh', '-c', 'sleep infinity']
+      volumeMounts:
+        - name: home
+          mountPath: /sciclone/home/stmorse
+  volumes:
+    - name: home
+      nfs:
+        server: 128.239.56.166
+        path: /sciclone/home/stmorse

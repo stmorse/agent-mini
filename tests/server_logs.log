@@ -1,0 +1,77 @@
+2024-10-04 14:57:51,002 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 14:58:51,053 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:23:17,724 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:24:17,787 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:25:17,850 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:26:17,913 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:27:17,976 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:28:18,038 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:29:18,100 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:30:18,117 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:31:18,180 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:32:18,242 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:33:18,274 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:34:18,282 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:35:18,345 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:36:18,349 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:37:18,411 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:38:18,421 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:39:18,484 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:40:18,547 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:41:18,595 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:42:18,658 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:43:18,722 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:44:18,785 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:45:18,848 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 15:46:18,911 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:38:15,245 - FAISS Management Server started, listening on port 5001
+2024-10-04 16:38:39,076 - Create index_dict: {'1': <faiss.swigfaiss_avx2.IndexIDMap; proxy of <Swig Object of type 'faiss::IndexIDMapTemplate< faiss::Index > *' at 0x7fb1608ce3c0> >}
+2024-10-04 16:38:39,343 - Index 1 created and stored in manager dictionary
+2024-10-04 16:38:39,470 - Index 1 created
+2024-10-04 16:38:39,512 - Vectors added to index 1
+2024-10-04 16:38:39,597 - Vectors added to index 1
+2024-10-04 16:38:39,639 - Searching Index 1. Msg 1
+2024-10-04 16:38:39,681 - Searching Index 1. Msg 2A
+2024-10-04 16:38:39,681 - Searching Index 1. Msg 2B
+2024-10-04 16:39:15,315 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:40:15,351 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:41:15,423 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:42:15,496 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:43:15,570 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:44:15,611 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:45:15,686 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:46:15,756 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:47:14,693 - FAISS Management Server started, listening on port 5001
+2024-10-04 16:47:25,480 - Create index_dict: {'1': <faiss.swigfaiss_avx2.IndexIDMap; proxy of <Swig Object of type 'faiss::IndexIDMapTemplate< faiss::Index > *' at 0x7ff1b93273f0> >}
+2024-10-04 16:47:25,749 - Index 1 created and stored in manager dictionary
+2024-10-04 16:47:25,876 - Index 1 created
+2024-10-04 16:47:25,918 - Vectors added to index 1
+2024-10-04 16:47:26,002 - Vectors added to index 1
+2024-10-04 16:47:26,044 - Searching Index 1. Msg 1
+2024-10-04 16:47:26,086 - Searching Index 1. Msg 2A
+2024-10-04 16:47:26,086 - Searching Index 1. Msg 2B
+2024-10-04 16:47:26,231 - Searching Index 1. Msg 2
+2024-10-04 16:48:14,763 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:49:14,837 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:50:14,853 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:51:14,869 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:52:14,943 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:53:15,020 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:54:15,042 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:55:15,082 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:56:15,154 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:57:15,181 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 16:58:15,197 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 17:11:02,424 - FAISS Management Server started, listening on port 5000
+2024-10-04 17:12:02,486 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 17:13:02,527 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 17:14:02,597 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 17:15:02,670 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 17:16:02,743 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-04 17:18:17,937 - FAISS Management Server started, listening on port 5000
+2024-10-04 17:18:33,989 - Create index_dict: {'1': <faiss.swigfaiss_avx2.IndexIDMap; proxy of <Swig Object of type 'faiss::IndexIDMapTemplate< faiss::Index > *' at 0x7fa64049b3f0> >}
+2024-10-04 17:18:34,264 - Index 1 created and stored in manager dictionary
+2024-10-04 17:18:34,441 - Vectors added to index 1
+2024-10-04 17:18:34,615 - Searching Index 1. Msg 2A
+2024-10-04 17:18:34,615 - Searching Index 1. Msg 2B
+2024-10-04 17:19:17,998 - Dictionary saved to faiss_index_dir and rotated files

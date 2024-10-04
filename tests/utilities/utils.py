@@ -7,7 +7,7 @@ import os
 import random
 import re
 import sys
-import faiss
+# import faiss
 
 from datetime import datetime, timedelta
 

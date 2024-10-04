@@ -25,6 +25,7 @@ spec:
           limits:
             memory: '1Gi'
             nvidia.com/gpu: '1'
+        command: ['/bin/sh', '-c', 'sleep infinity']
         volumeMounts:
         - name: home
           mountPath: /sciclone/home/stmorse
