@@ -31,4 +31,4 @@ COPY faiss-server.py /app/
 EXPOSE 5000
 
 # Command to run the application
-# CMD ["conda", "run", "-n", "faiss-env", "python", "faiss-server.py"]
+CMD ["conda", "run", "-n", "faiss-env", "python", "faiss-server.py"]
