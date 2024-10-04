@@ -25,6 +25,14 @@ spec:
           limits:
             memory: '1Gi'
             nvidia.com/gpu: '1'
+        volumeMounts:
+        - name: home
+          mountPath: /sciclone/home/stmorse
+      volumes:
+      - name: home
+        nfs:
+          server: 128.239.56.166
+          path: /sciclone/home/stmorse
 ---
 apiVersion: v1
 kind: Service

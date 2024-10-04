@@ -6,7 +6,7 @@ class FaissManager(BaseManager):
     pass
 
 
-def get_faiss_manager(a=('localhost', 50000), key=b'faiss'):
+def get_faiss_manager(a=('localhost', 5000), key=b'faiss'):
     manager = FaissManager(address=a, authkey=key)
     manager.connect()
     return manager

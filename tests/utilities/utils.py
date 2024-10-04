@@ -11,14 +11,14 @@ import faiss
 
 from datetime import datetime, timedelta
 
-import psycopg2
-import psycopg2.extras
-import pytz
-from groq import Groq
-from octoai.client import Client
-from openai import OpenAI, AzureOpenAI
-from psycopg2 import pool
-from psycopg2 import sql
+# import psycopg2
+# import psycopg2.extras
+# import pytz
+# from groq import Groq
+# from octoai.client import Client
+# from openai import OpenAI, AzureOpenAI
+# from psycopg2 import pool
+# from psycopg2 import sql
 
 # Version 0.1 of the Comp-HuSim system.
 # Development began in Fall 2023.
@@ -26,7 +26,7 @@ from psycopg2 import sql
 # Collaborators:
 
 # Define the timezone
-timezone = pytz.timezone('UTC')
+# timezone = pytz.timezone('UTC')
 
 
 def uuid_to_int64(uuid_obj):
