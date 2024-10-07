@@ -18,7 +18,7 @@ WORKDIR /app
 RUN conda create -n faiss-env python=3.9 
 
 # Activate the Conda environment
-# SHELL ["conda", "run", "-n", "faiss-env", "/bin/bash", "-c"]
+SHELL ["conda", "run", "-n", "faiss-env", "/bin/bash", "-c"]
 
 # Install dependencies
 RUN conda install -n faiss-env -c pytorch -c nvidia faiss-gpu && \
