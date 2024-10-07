@@ -13,6 +13,8 @@ spec:
       labels:
         app: faiss
     spec:
+      securityContext:
+        runAsUser: 270999
       containers:
       - name: faiss-container
         image: ghcr.io/stmorse/agent-mini-faiss:latest
@@ -45,6 +47,6 @@ spec:
     app: faiss
   ports:
     - protocol: TCP
-      port: 80
+      port: 90
       targetPort: 5000
   type: ClusterIP
