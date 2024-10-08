@@ -14,7 +14,9 @@ spec:
         app: faiss
     spec:
       securityContext:
+        # fsGroup: 270999  # this was to run just NFS as non-root but doesn't work
         runAsUser: 270999
+
       containers:
       - name: faiss-container
         image: ghcr.io/stmorse/agent-mini-faiss:latest
@@ -31,6 +33,7 @@ spec:
         volumeMounts:
         - name: home
           mountPath: /sciclone/home/stmorse
+
       volumes:
       - name: home
         nfs:
