@@ -75,3 +75,11 @@
 2024-10-04 17:18:34,615 - Searching Index 1. Msg 2A
 2024-10-04 17:18:34,615 - Searching Index 1. Msg 2B
 2024-10-04 17:19:17,998 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-08 17:36:19,717 - FAISS Management Server started, listening on port 5000
+2024-10-08 17:37:19,781 - Dictionary saved to faiss_index_dir and rotated files
+2024-10-08 17:37:32,069 - Create index_dict: {}
+2024-10-08 17:37:32,344 - Index 1 created and stored in manager dictionary
+2024-10-08 17:37:32,519 - Vectors added to index 1
+2024-10-08 17:37:32,692 - Searching Index 1. Msg 2A
+2024-10-08 17:37:32,692 - Searching Index 1. Msg 2B
+2024-10-08 17:38:19,845 - Dictionary saved to faiss_index_dir and rotated files
