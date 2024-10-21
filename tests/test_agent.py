@@ -1,12 +1,35 @@
 import requests
 import json
 
+import psycopg2
+
 from utilities.faiss_utils import *
 
-if __name__ == '__main__':
-    
-    print('Agent is running ...')
+TEST_POSTGRES = True
+TEST_FAISS = False
+TEST_LORAX = False
 
+def test_postgres():
+    print('Connecting to Postgres ...')
+    connection = psycopg2.connect(
+        host="postgres", 
+        port="5432",
+        database="mydb", 
+        user="user", 
+        password="password"
+    )
+
+    print('Postgres version:')
+    cursor = connection.cursor()
+    cursor.execute("SELECT version();")
+    print(cursor.fetchone())
+
+    print('Closing connection...')
+    cursor.close()
+    connection.close()
+
+
+def test_faiss():
     # FAISS server tests
 
     print('Testing FAISS server ...')
@@ -24,6 +47,7 @@ if __name__ == '__main__':
     search_index(manager, 1, queries, k=1)
 
 
+def test_lorax():
     # LoRAX server tests
 
     print('Testing LoRAX server ...')
@@ -45,3 +69,21 @@ if __name__ == '__main__':
         })
     
     print(json.loads(response.text))
+
+
+
+if __name__ == '__main__':    
+    print('Agent is running ...')
+    print(f'Testing: \
+          Postgres={TEST_POSTGRES}, FAISS={TEST_FAISS}, LoRAX={TEST_LORAX}')
+
+    if TEST_POSTGRES:
+        test_postgres()
+    
+    if TEST_FAISS:
+        test_faiss()
+    
+    if TEST_LORAX:
+        test_lorax()
+
+    print('Agent is done.')

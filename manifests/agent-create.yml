@@ -6,6 +6,7 @@ metadata:
 spec:
   securityContext:
     runAsUser: 270999
+    runAsGroup: 1132
   containers:
     - name: agent-pod
       image: 'ghcr.io/stmorse/agent-mini-agent:latest'
@@ -16,7 +17,7 @@ spec:
       command: ['/bin/sh', '-c', 'sleep infinity']
       volumeMounts:
         - name: home
-          mountPath: /sciclone/home/stmorse
+          mountPath: /home
   volumes:
     - name: home
       nfs:
