@@ -1,0 +1,3 @@
+{
+    "CREATE": "Based on the SEED below and utilizing the given PERSONA structure below, generate a creative and unique persona blending uncommon and unrelated fields or interests and avoiding common career choices. (But please, something besides puppetry). Ensure internal consistency in the generated information and make the persona’s hands not highly visible in the profile picture description.  Format all the generated information into one single JSON object based on the following PERSONA structure: "
+}

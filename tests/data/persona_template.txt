@@ -1,0 +1,39 @@
+{
+  "PERSONA": {
+    "Name": {"First": "<first_name>", "Last": "<last_name>"},
+    "Backstory": "<brief_backstory>",
+    "Hook": "<unique_hook>",
+    "Profile_Picture_Description": "<profile_picture_description>",
+    "Summary": "<a 200 word summary of the persona for use in future prompts>",
+    "Demographics": {
+      "Age": "<age>",
+      "Gender Identity": "<gender>",
+      "National Affiliation": "<national_affiliation>",
+      "Education": "<education_level>",
+      "Wealth Index": "<wealth_index>"
+    },
+    "Family": {
+      "Mother": "<mother details>",
+      "Father": "<father details>",
+      "Siblings": "<sibling details>",
+      "Children": "<children details>"
+    },
+    "Psychographics": {
+      "charactaristic_1": "<name>: <description>",
+      "charactaristic_2": "<name>: <description>",
+      "charactaristic_3": "<name>: <description>",
+      "charactaristic_4": "<name>: <description>",
+      "charactaristic_5": "<name>: <description>"
+    },
+    "Personality": {
+      "Big5": {"Openness":"<description>","conscientiousness":"<description>", "extraversion":"<description>", "agreeableness":"<description>","neuroticism":"<description>"}
+    },
+    "Interests": {
+      "<interest_1>": "<description>",
+      "<interest_2>": "<description>",
+      "<interest_3>": "<description>",
+      "<interest_4>": "<description>",
+      "<interest_5>": "<description>"
+    }
+  }
+}
