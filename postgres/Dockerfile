@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y \
     procps \
  && rm -rf /var/lib/apt/lists/*
 
-RUN chown -R 27099:1132 /var/lib/postgresql/data
+RUN chown -R 27099:1132 /var/lib/postgresql/data && \
+    chmod -R 700 /var/lib/postgresql/data
 
 # Set the same entrypoint and command as the original Postgres image
 CMD ["postgres"]
