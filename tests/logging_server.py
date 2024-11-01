@@ -5,8 +5,10 @@ import argparse
 
 from utilities.utils import load_config
 
-# Configure logging
-logging.basicConfig(filename='server_logs.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+# config logging to save to file
+logging.basicConfig(filename='server_logs.log', 
+                    level=logging.INFO, 
+                    format='%(asctime)s - %(message)s')
 
 
 def handle_client_connection(client_socket):
@@ -30,12 +32,14 @@ def start_logging_server(logging_host, logging_port: int):
         while True:
             client_socket, addr = server_socket.accept()
             # print(f'Connected by {addr}')
-            client_handler = threading.Thread(target=handle_client_connection, args=(client_socket,))
+            client_handler = threading.Thread(
+                target=handle_client_connection, args=(client_socket,))
             client_handler.start()
 
 
 if __name__ == '__main__':
-    # get commandline variables
+    # when run from command line, allow custom set of host/port
+    # if nothing set, use config.ini
 
     config = load_config('config.ini')
     parser = argparse.ArgumentParser("logging_server.py")

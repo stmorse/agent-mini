@@ -3,14 +3,28 @@ import json
 
 import psycopg2
 
-from utilities.faiss_utils import *
+from utilities.utils import load_config
+# from utilities.faiss_utils import get_faiss_manager, create_faiss_index, \
+#     add_vectors, search_index
+from utilities.logging_utils import send_log_message
 
-TEST_POSTGRES = True
-TEST_FAISS = True
+TEST_LOGGER = True
+TEST_POSTGRES = False
+TEST_FAISS = False
 TEST_LORAX = False
+
+def test_logger():
+    config = load_config('config.ini')
+    h = config.get('DEFAULT', 'LOGGING_HOST')
+    p = config.get('DEFAULT', 'LOGGING_PORT')
+    send_log_message(f'Testing logger on host {h} and port {p}', 
+                     _host=h, _port=p)
 
 def test_postgres():
     print('Connecting to Postgres ...')
+    
+    config = load_config('config.ini')
+    
     connection = psycopg2.connect(
         host="postgres", 
         port="5432",
@@ -75,7 +89,13 @@ def test_lorax():
 if __name__ == '__main__':    
     print('Agent is running ...')
     print(f'Testing: \
-          Postgres={TEST_POSTGRES}, FAISS={TEST_FAISS}, LoRAX={TEST_LORAX}')
+        Logger={TEST_LOGGER}, \
+        Postgres={TEST_POSTGRES}, \
+        FAISS={TEST_FAISS}, \
+        LoRAX={TEST_LORAX}')
+
+    if TEST_LOGGER:
+        test_logger()
 
     if TEST_POSTGRES:
         test_postgres()

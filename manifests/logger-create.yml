@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logger
+  namespace: fais-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logger
+  template:
+    metadata:
+      labels:
+        app: logger
+    spec:
+      securityContext:
+        runAsUser: 270999
+        runAsGroup: 1132
+
+      containers:
+      - name: logger-container
+        image: 'python:3.11-slim:latest'
+        ports:
+        - containerPort: 10000
+        resources:
+          requests:
+            memory: '1Gi'
+            cpu: '1'
+          limits:
+            memory: '1Gi'
+            cpu: '1'
+        command: ['/bin/sh', '-c', 'sleep infinity']
+        volumeMounts:
+        - name: home
+          mountPath: /home
+
+      volumes:
+      - name: home
+        nfs:
+          server: 128.239.56.166
+          path: /sciclone/home/stmorse
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logger
+  namespace: fais-1
+spec:
+  selector:
+    app: logger
+  ports:
+    - protocol: TCP
+      port: 10000
+      targetPort: 10000
+  type: ClusterIP
