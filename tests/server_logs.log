@@ -83,3 +83,35 @@
 2024-10-08 17:37:32,692 - Searching Index 1. Msg 2A
 2024-10-08 17:37:32,692 - Searching Index 1. Msg 2B
 2024-10-08 17:38:19,845 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:48:10,997 - FAISS Management Server started, listening on port 5000
+2024-11-01 13:48:20,094 - Create index_dict: {}
+2024-11-01 13:48:20,374 - Index 1 created and stored in manager dictionary
+2024-11-01 13:48:20,551 - Vectors added to index 1
+2024-11-01 13:48:20,728 - Searching Index 1. Msg 2A
+2024-11-01 13:48:20,728 - Searching Index 1. Msg 2B
+2024-11-01 13:49:11,063 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:50:11,132 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:51:11,146 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:52:11,186 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:53:11,197 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:54:11,249 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:55:11,318 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:56:11,386 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:57:11,455 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:58:11,505 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 13:59:11,516 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:00:11,569 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:01:11,626 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:02:11,686 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:03:11,753 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:04:11,824 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:05:11,892 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:06:11,960 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:07:11,968 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:08:12,038 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:09:12,050 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:10:12,118 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:11:12,129 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:12:12,155 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:13:12,164 - Dictionary saved to faiss_index_dir and rotated files
+2024-11-01 14:14:12,225 - Dictionary saved to faiss_index_dir and rotated files

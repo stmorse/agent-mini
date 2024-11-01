@@ -6,7 +6,7 @@ import psycopg2
 from utilities.faiss_utils import *
 
 TEST_POSTGRES = True
-TEST_FAISS = False
+TEST_FAISS = True
 TEST_LORAX = False
 
 def test_postgres():

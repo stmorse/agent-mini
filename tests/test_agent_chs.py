@@ -7,9 +7,10 @@ from psycopg2.extras import RealDictCursor
 
 from sentence_transformers import SentenceTransformer
 
-from utilities.utils import generate_persona_seed, get_llm_response, get_agent_row
+from utilities.utils import generate_persona_seed, get_llm_response, get_agent_row, \
+    get_connection_pool, gpu_check_avail_faiss, load_config, setup_logger
 from utilities.logging_utils import send_log_message
-from utilities.faiss_utils import get_faiss_manager
+from utilities.faiss_utils import get_faiss_manager, create_faiss_index
 
 class CompHuSimAgent:
     def __init__(self, config=None, logger=None, connection_pool=None, 
@@ -77,6 +78,8 @@ class CompHuSimAgent:
             print(f"Created empty agent. UUID:", self.uuid)
             self.load_agent_details()
 
+        # with UUID 
+
         # previous CHS agent used azure client
         # self.client = create_azure_client(config=self.config, model='gpt-40-1')
         # TODO: adapt for internal LLM server
@@ -92,8 +95,7 @@ class CompHuSimAgent:
                          _host=self.logging_host, 
                          _port=self.logging_port)
 
-    def _execute_sql_query(self, query, values=None, fetch='all',
-                           cf=None):
+    def _execute_sql_query(self, query, values=None, fetch='all', cf=None):
         # query should be a psycopg2.sql.SQL object
         # values should be a tuple of values to insert into the query
         # returns value from cursor.fetch{fetch}()[0]
@@ -277,7 +279,7 @@ class CompHuSimAgent:
         pass
 
 
-    def load_memory_vector_db(self):
+    def load_memory_vector_db(self, debug=False):
         """
         Loads a dictionary of memory descriptions into a FAISS index 
         for efficient similarity search.
@@ -285,13 +287,13 @@ class CompHuSimAgent:
 
         # Start the timer so we can log how long this takes
         start_time = time.time()
-        send_log_message(f"INFO: start memories FAISS DB load", _host=self.logging_host, _port=self.logging_port)
+        self._log(f"INFO: start memories FAISS DB load")
 
         if memories_dict is None:
             # Load full memories dict for agent if a memories_dict isn't passed in
             memories_dict = self.get_memories_dict()
 
-        if debug: print(f"Full Memories Dict:",memories_dict,"\n\n")
+        if debug: print(f"Full Memories Dict:", memories_dict,"\n\n")
 
         # Create a new dictionary with just the IDs and DESCRIPTIONS from the memories
         mem_descriptions_dict = {
@@ -318,11 +320,11 @@ class CompHuSimAgent:
         if gpu_check_avail_faiss():
             # Initialize FAISS index for GPU
             if debug: print("We are using CUDA for FAISS DB Index")
-            send_log_message(message="INFO: Using CUDA for FAISS DB INDEX")
+            self._log(message="INFO: Using CUDA for FAISS DB INDEX")
         else:
             # Initialize FAISS index for CPU
             if debug: print("Using FAISS CPU for FAISS DB Index")
-            send_log_message(message="INFO: Using CPU for FAISS DB INDEX")
+            self._log(message="INFO: Using CPU for FAISS DB INDEX")
 
         try:
             # Attempt to sync the VectorDB Index with Postgres Memory Index
@@ -339,7 +341,7 @@ class CompHuSimAgent:
 
         except Exception as e:
             print(f"Failed to initialize FAISS GPU index: {e}")
-            send_log_message(message=f"ERROR: Using GPU for FAISS DB INDEX: {e}")
+            self._log(message=f"ERROR: Using GPU for FAISS DB INDEX: {e}")
             raise
 
         if debug: print("Made it to here 3")
@@ -349,10 +351,24 @@ class CompHuSimAgent:
 
         # Calculate and display elapsed time
         elapsed_time = end_time - start_time
-        send_log_message(f"INFO: complete load FAISS DB elapsed time: {elapsed_time} seconds", _host=self.logging_host,
-                         _port=self.logging_port)
+        self._log(f"INFO: complete load FAISS DB elapsed time: {elapsed_time} seconds")
 
         # Return the FAISS index object
         #return faiss_index
 
         return True
+    
+if __name__=="__main__":
+    # setup SQL connection and logger from config.ini
+    config = load_config('config.ini')
+    conn_pool = get_connection_pool(config)
+    logger = setup_logger(config)
+
+    # initiate agent with these connections
+    # will be a "new" agent from persona
+    agent = CompHuSimAgent(
+        config=config, 
+        logger=logger, 
+        connection_pool=conn_pool,
+        do_create=True
+    )
