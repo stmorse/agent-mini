@@ -26,3 +26,8 @@ Sandbox area for CompHuSim related tests.
 - Current `faiss-server.py` is barebones and the `add_vectors` method doesn't work, but it does communicate over the service (port 5000).  Working to switch implementation from Flask to multiprocessing.BaseManager.
 
 - Something funky going on with conda -- you have to run conda init, close the shell, restart shell, activate the environment, then run script.  I've seen code doing I think this in other Dockerfiles but need to implement.
+
+
+### LoRAX
+
+`helm install mistral charts/lorax -n fais-1`

@@ -1,12 +1,12 @@
+"""
+Currently, these are generic utils that can be imported by in any container
+I.e. no special package requirements
+Any environment-specific packages go in environment-specific utils
+"""
+
 import hashlib          # uuid_to_int64
 import configparser     # load_config
 import os               # load_config
-# import datetime
-# import json
-# import logging
-# import random
-# import re
-# import sys
 
 def uuid_to_int64(uuid_obj):
     '''
@@ -35,4 +35,3 @@ def load_config(config_file):
         return None
 
     return config
-

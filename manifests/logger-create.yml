@@ -19,7 +19,7 @@ spec:
 
       containers:
       - name: logger-container
-        image: 'python:3.11-slim:latest'
+        image: 'ghcr.io/stmorse/agent-mini-logger:latest'
         ports:
         - containerPort: 10000
         resources:

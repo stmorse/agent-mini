@@ -21,6 +21,8 @@ def get_connection_pool(config):
     connection_pool = psycopg2.pool.SimpleConnectionPool(
         1,  # minconn
         25,  # maxconn
+        host=config.get('DB', 'DB_HOST'),
+        port=config.get('DB', 'DB_PORT'),
         dbname=config.get('DB', 'DB_NAME'),
         user=config.get('DB', 'DB_USER'),
         password=config.get('DB', 'DB_PASS')

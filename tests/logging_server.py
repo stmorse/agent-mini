@@ -38,23 +38,21 @@ def start_logging_server(logging_host, logging_port: int):
 
 
 if __name__ == '__main__':
-    # when run from command line, allow custom set of host/port
+    # when run from command line, allow custom set of port
     # if nothing set, use config.ini
 
-    config = load_config('config.ini')
-    parser = argparse.ArgumentParser("logging_server.py")
+    # host needs to be 0.0.0.0 (on logger)
+    # host needs to be logger (on clients)
 
-    config_logging_host = config.get('DEFAULT', 'LOGGING_HOST')
+    config = load_config('config.ini')
     config_logging_port = int(config.get('DEFAULT', 'LOGGING_PORT'))
 
-    parser.add_argument("--LOGGING_HOST", nargs='?', 
-                        const=config_logging_host, default=config_logging_host, 
-                        help="Host name for the faiss server to live at. Default localhost")
+    parser = argparse.ArgumentParser("logging_server.py")
     parser.add_argument("--LOGGING_PORT", nargs='?', 
                         const=config_logging_port, default=config_logging_port, 
                         help="Port number for the faiss server to live at. Default from config.ini")
 
     args = parser.parse_args()
-    host, port = args.LOGGING_HOST, args.LOGGING_PORT
+    host, port = '0.0.0.0', args.LOGGING_PORT
 
     start_logging_server(host, port)

@@ -7,10 +7,11 @@ from psycopg2.extras import RealDictCursor
 
 from sentence_transformers import SentenceTransformer
 
-from utilities.utils import generate_persona_seed, get_llm_response, get_agent_row, \
-    get_connection_pool, gpu_check_avail_faiss, load_config, setup_logger
+from utilities.utils import load_config
 from utilities.logging_utils import send_log_message
+from utilities.db_utils import get_connection_pool
 from utilities.faiss_utils import get_faiss_manager, create_faiss_index
+from utilities.llm_utils import generate_persona_seed, get_llm_response
 
 class CompHuSimAgent:
     def __init__(self, config=None, logger=None, connection_pool=None, 
@@ -21,7 +22,7 @@ class CompHuSimAgent:
         self.config = config
         self.logging_host = config.get('DEFAULT', 'LOGGING_HOST')
         self.logging_port = config.get('DEFAULT', 'LOGGING_PORT')
-        self.faiss_host = config.get('DEFAULT', 'FAISS_HOST')
+        self.faiss_host = config.get('DEFAULT', 'FAISS_HOST_EXTERNAL')
         self.faiss_port = config.get('DEFAULT', 'FAISS_PORT')
         self.faiss_manager = get_faiss_manager(
             a=(self.faiss_host, int(self.faiss_port)), key=b'faiss')
@@ -172,11 +173,12 @@ class CompHuSimAgent:
 
         # get response from LLM
         # TODO: make model not hard-coded (get from config.ini)
-        response = get_llm_response(
-            config=self.config, 
-            prompt=creation_prompt, 
-            model='gpt-4o', 
-            client=self.client)  
+        # response = get_llm_response(
+        #     config=self.config, 
+        #     prompt=creation_prompt, 
+        #     model='gpt-4o', 
+        #     client=self.client)
+        response = get_llm_response(creation_prompt) 
 
         data = json.loads(response)
 
@@ -362,13 +364,11 @@ if __name__=="__main__":
     # setup SQL connection and logger from config.ini
     config = load_config('config.ini')
     conn_pool = get_connection_pool(config)
-    logger = setup_logger(config)
 
     # initiate agent with these connections
     # will be a "new" agent from persona
     agent = CompHuSimAgent(
         config=config, 
-        logger=logger, 
         connection_pool=conn_pool,
         do_create=True
     )

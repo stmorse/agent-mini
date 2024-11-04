@@ -4,43 +4,39 @@ import json
 import psycopg2
 
 from utilities.utils import load_config
-# from utilities.faiss_utils import get_faiss_manager, create_faiss_index, \
-#     add_vectors, search_index
+from utilities.faiss_utils import get_faiss_manager, create_faiss_index, \
+    add_vectors, search_index
 from utilities.logging_utils import send_log_message
+from utilities.db_utils import get_connection_pool
 
 TEST_LOGGER = True
-TEST_POSTGRES = False
-TEST_FAISS = False
-TEST_LORAX = False
+TEST_POSTGRES = True
+TEST_FAISS = True
+TEST_LORAX = True
 
 def test_logger():
     config = load_config('config.ini')
     h = config.get('DEFAULT', 'LOGGING_HOST')
     p = config.get('DEFAULT', 'LOGGING_PORT')
-    send_log_message(f'Testing logger on host {h} and port {p}', 
-                     _host=h, _port=p)
+    result = send_log_message(f'Testing logger on host {h} and port {p}', 
+                            _host=h, _port=p, verbose=True)
+    print('Logger success? ', result)
 
 def test_postgres():
     print('Connecting to Postgres ...')
     
     config = load_config('config.ini')
-    
-    connection = psycopg2.connect(
-        host="postgres", 
-        port="5432",
-        database="mydb", 
-        user="user", 
-        password="password"
-    )
+    conn_pool = get_connection_pool(config)
+    conn = conn_pool.getconn()
+    cursor = conn.cursor()
 
     print('Postgres version:')
-    cursor = connection.cursor()
     cursor.execute("SELECT version();")
     print(cursor.fetchone())
 
     print('Closing connection...')
     cursor.close()
-    connection.close()
+    conn_pool.putconn(conn)
 
 
 def test_faiss():

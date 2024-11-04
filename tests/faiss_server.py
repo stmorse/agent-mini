@@ -21,18 +21,26 @@ else:
 # init -- this will be updated by load_index_dict
 index_dict = None
 
+# for logging -- we will set in main
+LOGGING_HOST = None
+LOGGING_PORT = None
+
+# internal convenience wrapper
+def _log(message):
+    send_log_message(message, _host=LOGGING_HOST, _port=LOGGING_PORT)
+
 
 """
 These functions are the public API for the FAISS server
 """
 
 def create_faiss_index(index_dict, index_id, dimensions):
-    send_log_message(f"Create index_dict: {index_dict}")
+    _log(f"Create index_dict: {index_dict}")
 
     # check if index_id already exists
     if index_id in index_dict:
-        send_log_message(f"Index {index_id} already exists\n")
-        send_log_message(f"Either delete this index before recreating it, \
+        _log(f"Index {index_id} already exists\n")
+        _log(f"Either delete this index before recreating it, \
                          or use a different index_id.\n")
         return
     
@@ -43,10 +51,10 @@ def create_faiss_index(index_dict, index_id, dimensions):
         if gpu_avail:
             faiss_index = faiss.index_cpu_to_gpu(res, 0, faiss_index)
         index_dict[index_id] = faiss_index
-        send_log_message(f"Index {index_id} created and stored in manager dictionary")
+        _log(f"Index {index_id} created and stored in manager dictionary")
         return index_id
     except Exception as e:
-        send_log_message(f"Error creating index: {e}")
+        _log(f"Error creating index: {e}")
         return None
 
 
@@ -57,16 +65,16 @@ def delete_faiss_index(index_dict, index_id):
 
     if index_id in index_dict:
         del index_dict[index_id]
-        send_log_message(f"Index {index_id} deleted from manager dictionary")
+        _log(f"Index {index_id} deleted from manager dictionary")
     else:
-        send_log_message(f"Index {index_id} not found, could not delete")
+        _log(f"Index {index_id} not found, could not delete")
 
 
 def load_faiss_index(manager_dict, index_id):
     if index_id not in manager_dict:
-        send_log_message("Index not found.")
+        _log("Index not found.")
     else:
-        send_log_message(f"loading faiss index {index_id}")
+        _log(f"loading faiss index {index_id}")
         faiss_index = faiss.read_index(uuid_to_filename(index_id, "faiss_index"))
         if gpu_avail:
             faiss_index = faiss.index_cpu_to_gpu(res, 0, faiss_index)
@@ -74,15 +82,15 @@ def load_faiss_index(manager_dict, index_id):
 
 
 def search_index(manager_dict, index_id, queries, k):
-    send_log_message(f"Searching Index {index_id}. Msg 2A")
+    _log(f"Searching Index {index_id}. Msg 2A")
     index = manager_dict[index_id]
     if index is not None:
-        send_log_message(f"Searching Index {index_id}. Msg 2B")
+        _log(f"Searching Index {index_id}. Msg 2B")
         queries = np.array(queries).astype('float32')
         D, I = index.search(queries, k)
         return D, I
     else:
-        send_log_message(f"Index {index_id} not found")
+        _log(f"Index {index_id} not found")
         return None
 
 
@@ -90,16 +98,16 @@ def add_vectors(manager_dict, index_id, vectors, vector_ids):
     index = manager_dict[index_id]
     if index is not None:
         index.add_with_ids(np.array(vectors).astype('float32'), vector_ids)
-        send_log_message(f"Vectors added to index {index_id}")
+        _log(f"Vectors added to index {index_id}")
     else:
-        send_log_message(f"Index {index_id} not found")
+        _log(f"Index {index_id} not found")
 
 
 """
 All functions below are private, used by the server
 """
 
-def start_faiss_server(host, port, logging_host=None, logging_port=None):
+def start_faiss_server(host, port):
     print("Starting FAISS Management Server")
 
     # load index from `faiss_index_dir`
@@ -142,8 +150,7 @@ def start_faiss_server(host, port, logging_host=None, logging_port=None):
     server = manager.get_server()
 
     # send log message
-    send_log_message(f"FAISS Management Server started, listening on port {port}", 
-                     logging_host, logging_port)
+    _log(f"FAISS Management Server started, listening on port {port}")
     
     # start periodic saving of the index dictionary
     # (default is every 60 secs)
@@ -237,7 +244,7 @@ def periodic_save(index_dict, filename, interval=60):
 
             # write the index_dict to the current filename directory and log
             save_index_dict(index_dict, filename)
-            send_log_message(f"Dictionary saved to {filename} and rotated files")
+            _log(f"Dictionary saved to {filename} and rotated files")
 
     # initiates the save thread daemon
     thread = threading.Thread(target=save, daemon=True)
@@ -246,32 +253,13 @@ def periodic_save(index_dict, filename, interval=60):
 
 if __name__ == "__main__":
     # load from config.ini
-    # these will serve as defaults if nothing specified in command line
     config = load_config('config.ini')
-    config_faiss_host = config.get('DEFAULT', 'FAISS_HOST')
-    config_faiss_port = int(config.get('DEFAULT', 'FAISS_PORT'))
-    config_logging_host = config.get('DEFAULT', 'LOGGING_HOST')
-    config_logging_port = int(config.get('DEFAULT', 'LOGGING_PORT'))
+    FAISS_HOST = config.get('DEFAULT', 'FAISS_HOST_INTERNAL')
+    FAISS_PORT = int(config.get('DEFAULT', 'FAISS_PORT'))
 
-    # parse any command line arguments
-    parser = argparse.ArgumentParser("faiss_server.py")
+    # these are set globally in this script
+    # (Hacky need to fix)
+    LOGGING_HOST = config.get('DEFAULT', 'LOGGING_HOST')
+    LOGGING_PORT = int(config.get('DEFAULT', 'LOGGING_PORT'))
 
-    # note: nargs='?' means the argument is optional, and const provides a default value
-    parser.add_argument("--FAISS_HOST", nargs='?', 
-                        const=config_faiss_host, default=config_faiss_host,
-                        help="Host name for the FAISS server. Default localhost", 
-                        type=str)
-    parser.add_argument("--FAISS_PORT", nargs='?', 
-                        const=config_faiss_port, default=config_faiss_port, 
-                        help="", type=int)
-    parser.add_argument("--LOGGING_HOST", nargs='?', 
-                        const=config_logging_host, default=config_logging_host, 
-                        help="", type=str)
-    parser.add_argument("--LOGGING_PORT", nargs='?', 
-                        const=config_logging_port, default=config_logging_port, 
-                        help="", type=int)
-
-    # parse the arguments and start server
-    args = parser.parse_args()
-    start_faiss_server(args.FAISS_HOST, args.FAISS_PORT, 
-                       args.LOGGING_HOST, args.LOGGING_PORT)
+    start_faiss_server(FAISS_HOST, FAISS_PORT)
