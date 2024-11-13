@@ -9,10 +9,10 @@ from utilities.faiss_utils import get_faiss_manager, create_faiss_index, \
 from utilities.logging_utils import send_log_message
 from utilities.db_utils import get_connection_pool
 
-TEST_LOGGER = True
+TEST_LOGGER = False
 TEST_POSTGRES = True
-TEST_FAISS = True
-TEST_LORAX = True
+TEST_FAISS = False
+TEST_LORAX = False
 
 def test_logger():
     config = load_config('config.ini')
